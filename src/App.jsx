@@ -13,7 +13,7 @@ import ProgressCard from "./components/ProgressCard";
 import HabitRow from "./components/HabitRow";
 import AddHabitForm from "./components/AddHabitForm";
 import StatsGrid from "./components/StatsGrid";
-import ChartsView from "./components/Chartsview";
+import ChartsView from "./components/ChartsView";
 import Modal from "./components/Modal";
 import Toast from "./components/Toast";
 

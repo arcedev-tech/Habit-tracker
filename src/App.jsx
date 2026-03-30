@@ -13,7 +13,9 @@ import ProgressCard from "./components/ProgressCard";
 import HabitRow from "./components/HabitRow";
 import AddHabitForm from "./components/AddHabitForm";
 import StatsGrid from "./components/StatsGrid";
-import ChartsView from "./components/Chartsview";
+import ChartsView from "./components/ChartsView";
+import Modal from "./components/Modal";
+import Toast from "./components/Toast";
 
 const TABS = [
   { id: "tracker", label: "Hábitos", icon: "✅" },
@@ -25,6 +27,8 @@ export default function App() {
   const [completions, setCompletions] = useLocalStorage("habits-completions", {});
   const [showAdd, setShowAdd] = useState(false);
   const [activeTab, setActiveTab] = useState("tracker");
+  const [modalData, setModalData] = useState(null);
+  const [toast, setToast] = useState(null);
 
   const todayKey = getTodayKey();
   const weekDates = getWeekDates();
@@ -41,13 +45,21 @@ export default function App() {
   const addHabit = useCallback((habit) => {
     setHabits((prev) => [...prev, habit]);
     setShowAdd(false);
+    setToast({ message: `"${habit.name}" añadido`, icon: "✨" });
   }, [setHabits]);
 
   const removeHabit = useCallback((id) => {
-    if (confirm("¿Eliminar este hábito?")) {
-      setHabits((prev) => prev.filter((h) => h.id !== id));
-    }
-  }, [setHabits]);
+    const habit = habits.find((h) => h.id === id);
+    setModalData({
+      title: "Eliminar hábito",
+      message: `¿Seguro que quieres eliminar "${habit?.name}"? Se perderá todo su historial de seguimiento.`,
+      onConfirm: () => {
+        setHabits((prev) => prev.filter((h) => h.id !== id));
+        setModalData(null);
+        setToast({ message: `"${habit?.name}" eliminado`, icon: "🗑️" });
+      },
+    });
+  }, [habits, setHabits]);
 
   const todayCount = habits.filter((h) => completions[todayKey]?.[h.id]).length;
   const todayTotal = habits.length;
@@ -220,6 +232,27 @@ export default function App() {
       }}>
         Tus datos se guardan localmente en este dispositivo ✓
       </p>
+
+      {/* Custom confirm modal */}
+      {modalData && (
+        <Modal
+          title={modalData.title}
+          message={modalData.message}
+          onConfirm={modalData.onConfirm}
+          onCancel={() => setModalData(null)}
+          confirmText="Eliminar"
+          danger
+        />
+      )}
+
+      {/* Toast notifications */}
+      {toast && (
+        <Toast
+          message={toast.message}
+          icon={toast.icon}
+          onClose={() => setToast(null)}
+        />
+      )}
     </div>
   );
 }

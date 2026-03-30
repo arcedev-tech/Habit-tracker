@@ -1,35 +1,39 @@
-🎯 Tracker de Hábitos
+# 🎯 Tracker de Hábitos
 
 Aplicación web para hacer seguimiento de tus hábitos diarios.
 Construida con React + Vite, funciona completamente en local (sin backend).
 
-✨ Funcionalidades
-Seguimiento semanal (últimos 7 días)
-Hábitos personalizables (añadir/eliminar con emoji)
-Rachas automáticas 🔥
-Progreso diario visual (anillo + barra)
-Estadísticas básicas (racha, total semanal, % del día)
-Persistencia en localStorage
-Modo oscuro automático
-🚀 Instalación
-npm install
-npm run dev
+## ✨ Funcionalidades:
 
-Abre: http://localhost:5173
+- 📅 Seguimiento semanal (últimos 7 días)
+- ✏️ Hábitos personalizables (emoji + nombre)
+-🔥 Rachas automáticas
+- 📊 Progreso diario (anillo + barra)
+- 📈 Estadísticas básicas
+- 💾 Persistencia en localStorage
+- 🌙 Modo oscuro automático
+  
+## Deployment
 
-📁 Estructura
-src/
-├── App.jsx
-├── main.jsx
-├── index.css
-├── utils.js
-├── useLocalStorage.js
-└── components/
-⚙️ Scripts
+Para ejecutar este proyecto en local:
+
+```bash
+  npm install
+  npm run dev
+```
+Abre en tu navegador:
+👉 http://localhost:5173 (o el puerto que te indique la terminal)
+
+## ⚙️ Scripts
+
+```bash
 npm run dev      # desarrollo
 npm run build    # producción
 npm run preview  # preview build
-💾 Datos
+```
+
+## 💾 Datos
+
 Guardados en localStorage
 Persisten al cerrar la app
 No se sincronizan entre dispositivos
